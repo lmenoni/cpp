@@ -10,7 +10,7 @@ CXX = g++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 # Sorgenti
-SRC = phonebook.cpp PhoneBook_class.cpp Contact_class.cpp
+SRC = main.cpp PhoneBook.cpp Contact.cpp
 
 # Regola di default
 all: $(NAME)

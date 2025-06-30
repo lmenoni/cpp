@@ -10,7 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phone.h"
+#include "phone.hpp"
+
+PhoneBook::PhoneBook(){
+    ncontacts  = 0;
+    oldest     = 0;
+}
+
+PhoneBook::PhoneBook(const PhoneBook& other){
+    for (int i = 0; i < 8; ++i)
+        contacts[i] = other.contacts[i];
+    ncontacts = other.ncontacts;
+    oldest = other.oldest;
+}
+
+PhoneBook& PhoneBook::operator=(const PhoneBook& other){
+    if (this != &other) {
+        for (int i = 0; i < 8; ++i)
+            contacts[i] = other.contacts[i];
+        ncontacts = other.ncontacts;
+        oldest = other.oldest;
+    }
+    return *this;
+}
+
+PhoneBook::~PhoneBook(){}
 
 void PhoneBook::displayAll(){
     std::cout << YELLOW << "|     Index|First Name| Last Name|  Nickname|" << RESET << std::endl;
@@ -38,7 +62,3 @@ void PhoneBook::addContact(Contact& newContact){
     }
 }
 
-PhoneBook::PhoneBook(){
-    ncontacts  = 0;
-    oldest     = 0;
-}

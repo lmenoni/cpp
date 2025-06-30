@@ -10,7 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phone.h"
+#include "phone.hpp"
+
+Contact::Contact(){}
+
+Contact::Contact(const Contact& other){
+    fname = other.fname;
+    lname = other.lname;
+    nick = other.nick;
+    phn = other.phn;
+    sec = other.sec;
+}
+
+Contact& Contact::operator=(const Contact& other){
+    if (this != &other) {
+        fname = other.fname;
+        lname = other.lname;
+        nick = other.nick;
+        phn = other.phn;
+        sec = other.sec;
+    }
+    return *this;
+}
+
+Contact::~Contact(){}
 
 bool Contact::setContact(std::string fn, std::string ln
             , std::string nk, std::string ph, std::string sc){
