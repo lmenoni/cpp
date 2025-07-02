@@ -14,19 +14,26 @@
 
 void    Harl::complain( std::string level ) {
     static std::string levels[] = { "DEBUG", "INFO", "WARNING", "ERROR" };
-    static void (Harl::*functions[])( void ) = {
-        &Harl::debug,
-        &Harl::info,
-        &Harl::warning,
-        &Harl::error
-    };
-    for (int i = 0; i < 4; ++i) {
-        if (levels[i] == level) {
-            (this->*functions[i])();
-            return ;
-        }
+    int type = 0;
+
+    while (levels[type] != level && type < 4)
+        type++;
+    switch (type) {
+        case (0):
+            debug();
+            // fall through
+        case (1):
+            info();
+            // fall through
+        case (2):
+            warning();
+            // fall through
+        case (3):
+            error();
+            break ;
+        default :
+            std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
     }
-    std::cout << "[Probably complaining about insignificant problems]" << std::endl;
 }
 
 void    Harl::debug( void ) {
