@@ -65,8 +65,10 @@ int main(int ac, char **av)
     std::ifstream   infile;
     std::ofstream   outfile;
 
-    if (ac != 4)
+    if (ac != 4){
+        std::cout   << "Invalid n of arguments."    << std::endl;
         return (1);
+    }
     filename = av[1];
     if (!openFiles(filename, infile, outfile))
         return (1);
