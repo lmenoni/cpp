@@ -18,7 +18,7 @@ int main( void ) {
     Point a(10, 10);
     Point b(15, 10);
     Point c(10, 15);
-    Point to_check(13, 11);
+    Point to_check(13, 12);
 
     if (bsp(a, b, c, to_check))
         std::cout   << "INSIDE"     << std::endl;

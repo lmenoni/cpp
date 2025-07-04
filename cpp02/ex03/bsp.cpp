@@ -17,13 +17,13 @@ float   myAbs(float val) {
 }
 
 float   area(const Point& p1, const Point& p2, const Point& p3) {
-    float   r;
+    Fixed   r;
 
-    r = ((p1.getPointX().toFloat() * (p2.getPointY().toFloat() - p3.getPointY().toFloat()))
-        + (p2.getPointX().toFloat() * (p3.getPointY().toFloat() - p1.getPointY().toFloat()))
-        + (p3.getPointX().toFloat() * (p1.getPointY().toFloat() - p2.getPointY().toFloat())))
-        / 2.0f;
-    return (myAbs(r));
+    r = ((p1.getPointX() * (p2.getPointY() - p3.getPointY()))
+        + (p2.getPointX() * (p3.getPointY() - p1.getPointY()))
+        + (p3.getPointX() * (p1.getPointY() - p2.getPointY())))
+        / Fixed(2);
+    return (myAbs(r.toFloat()));
 }
 
 bool    isOnSegment(const Point& p1, const Point& p2, const Point& point) {
