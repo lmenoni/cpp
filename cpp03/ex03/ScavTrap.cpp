@@ -27,6 +27,13 @@ void    ScavTrap::attack( const std::string& target ) {
 
 // ORTHODOX
 
+ScavTrap::ScavTrap( void ) : ClapTrap("default") {
+
+    HP = 100;
+    EP = 50;
+    Atk = 20;
+}
+
 ScavTrap::ScavTrap( const std::string& NewName )
     :   ClapTrap(NewName) {
     HP = 100;

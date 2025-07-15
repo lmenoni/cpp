@@ -17,6 +17,13 @@ void    FragTrap::highFivesGuys( void )
 
 // ORTHODOX
 
+FragTrap::FragTrap( void )  : ClapTrap("default") {
+
+    HP = 100;
+    EP = 100;
+    Atk = 30;
+}
+
 FragTrap::FragTrap( const std::string& NewName )
     :   ClapTrap(NewName) {
 

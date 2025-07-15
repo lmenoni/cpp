@@ -8,7 +8,7 @@ class   DiamondTrap : public FragTrap, public ScavTrap {
     
     private:
 
-        std::string name;
+        std::string Name;
 
     public:
 
@@ -17,7 +17,8 @@ class   DiamondTrap : public FragTrap, public ScavTrap {
         DiamondTrap( const DiamondTrap& other );
         DiamondTrap& operator=( const DiamondTrap& other );
 
-        void whoAmI( void );
+        void    whoAmI( void );
+        void    checkUp( void );
 };
 
 #endif

@@ -3,14 +3,14 @@
 # **************************************************************************** #
 
 # Nome dell'eseguibile
-NAME = ex02
+NAME = ex03
 
 # Compilatore e flags
 CXX = g++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 # Sorgenti
-SRC = main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
+SRC = main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
 
 # Regola di default
 all: $(NAME)
