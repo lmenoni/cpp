@@ -20,14 +20,14 @@ void    Cat::makeSound( void ) const {
 
 Cat::Cat( void ) {
     type = "Cat";
-    std::cout << "Cat default constructor called." << std::endl; 
+    std::cout << "Cat default constructor called." << std::endl;
 }
 
 Cat::~Cat( void ) { 
     std::cout << "Cat default destructor called."  << std::endl; 
 }
 
-Cat::Cat( const Cat& other ) {
+Cat::Cat( const Cat& other ) : Animal(other) {
     type = other.type;
     std::cout << "Cat copy constructor called."  << std::endl;
 }

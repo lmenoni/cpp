@@ -27,7 +27,7 @@ Dog::~Dog( void ) {
     std::cout << "Dog default destructor called."  << std::endl; 
 }
 
-Dog::Dog( const Dog& other ) {
+Dog::Dog( const Dog& other ) : Animal(other) {
     type = other.type;
     std::cout << "Dog copy constructor called."  << std::endl;
 }

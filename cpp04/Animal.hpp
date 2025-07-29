@@ -34,5 +34,4 @@ class Animal
 
 };
 
-
 #endif
