@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   ICharacter.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmenoni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/22 14:05:54 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/07/22 14:05:56 by lmenoni          ###   ########.fr       */
+/*   Created: 2025/07/31 16:16:43 by lmenoni           #+#    #+#             */
+/*   Updated: 2025/07/31 16:16:45 by lmenoni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_H
-#define DOG_H
+#ifndef ICHARACTER_H
+#define ICHARACTER_H
 
-#include "Animal.hpp"
-#include "Brain.hpp"
+#include <string>
+#include "AMateria.hpp"
 
-class Dog : public Animal
+class ICharacter
 {
-private:
-
-    Brain   *brain;
-
 public:
 
-    Dog( void );
-    ~Dog( void );
-    Dog( const Dog& other );
-    Dog& operator=( const Dog& other );
+    virtual ~ICharacter() {}
 
-    void    makeSound( void ) const;
-    void    displayIdeas( void ) const;
+    virtual std::string const & getName() const = 0;
+    virtual void equip(AMateria* m) = 0;
+    virtual void unequip(int idx) = 0;
+    virtual void use(int idx, ICharacter& target) = 0;
 
 };
-
 
 #endif

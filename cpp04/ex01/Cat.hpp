@@ -30,6 +30,7 @@ public:
     Cat& operator=( const Cat& other );
 
     void    makeSound( void ) const;
+    void    displayIdeas( void ) const;
 
 };
 

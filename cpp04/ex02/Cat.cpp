@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.cpp                                            :+:      :+:    :+:   */
+/*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmenoni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/22 14:05:59 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/07/22 14:06:02 by lmenoni          ###   ########.fr       */
+/*   Created: 2025/07/22 14:06:09 by lmenoni           #+#    #+#             */
+/*   Updated: 2025/07/22 14:06:11 by lmenoni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Dog.hpp"
+#include "Cat.hpp"
 
-void    Dog::makeSound( void ) const {
-    std::cout << "Woof!" << std::endl;
+void    Cat::makeSound( void ) const {
+    std::cout << "Meow!" << std::endl;
 }
 
-void    Dog::displayIdeas( void ) const {
+void    Cat::displayIdeas( void ) const {
     std::cout   << "=====ALL IDEAS====="    << std::endl;
     for (int i = 0; i <  100; i++) {
         std::cout   << brain->getIdea(i) << std::endl;
@@ -25,27 +25,26 @@ void    Dog::displayIdeas( void ) const {
 
 // ORTHODOX
 
-Dog::Dog( void ) : brain(new Brain()) {
-    type = "Dog";
-    std::cout << "Dog default constructor called." << std::endl; 
+Cat::Cat( void ) : brain(new Brain()) {
+    std::cout << "Cat default constructor called." << std::endl;
+    type = "Cat";
 }
 
-Dog::~Dog( void ) { 
-    std::cout << "Dog default destructor called."  << std::endl;
+Cat::~Cat( void ) {
+    std::cout << "Cat default destructor called."  << std::endl;
     delete brain;
 }
 
-Dog::Dog( const Dog& other ) : Animal(other) {
-    std::cout << "Dog copy constructor called."  << std::endl;
+Cat::Cat( const Cat& other ) : AAnimal(other) {
+    std::cout << "Cat copy constructor called."  << std::endl;
     type = other.type;
     brain = new Brain(*other.brain);
 }
 
-Dog& Dog::operator=( const Dog& other ) {
+Cat& Cat::operator=( const Cat& other ) {
     if (this != &other) {
         type = other.type;
         brain = new Brain(*other.brain);
     }
     return (*this);
 }
-

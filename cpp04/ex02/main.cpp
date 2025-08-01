@@ -15,7 +15,8 @@
 
 int main()
 {
-    Animal  *array[20];
+    AAnimal  *array[20];
+    // AAnimal  animal;
     int     nOfAnimals = 10;
 
     std::cout   << "=====CREAZIONE====="   << std::endl;
@@ -30,7 +31,7 @@ int main()
     Cat Garfield;
 
     Garfield.displayIdeas();
-    // scrivere funzione di stampa di tutte le idee per controllare che funzioni tutto correttamente
+
     std::cout   << "=====DISTRUZIONE====="   << std::endl;
     for (int i = 0; i < nOfAnimals; i++)
         delete array[i];

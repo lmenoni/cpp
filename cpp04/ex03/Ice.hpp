@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Ice.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmenoni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/22 14:05:54 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/07/22 14:05:56 by lmenoni          ###   ########.fr       */
+/*   Created: 2025/07/31 15:57:23 by lmenoni           #+#    #+#             */
+/*   Updated: 2025/07/31 15:57:25 by lmenoni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_H
-#define DOG_H
+#ifndef ICE_H
+#define ICE_H
 
-#include "Animal.hpp"
-#include "Brain.hpp"
+#include "AMateria.hpp"
 
-class Dog : public Animal
+class Ice : public AMateria
 {
-private:
-
-    Brain   *brain;
-
 public:
 
-    Dog( void );
-    ~Dog( void );
-    Dog( const Dog& other );
-    Dog& operator=( const Dog& other );
+    Ice( void );
+    Ice( const Ice& other );
+    Ice& operator=( const Ice& );
+    ~Ice( void );
 
-    void    makeSound( void ) const;
-    void    displayIdeas( void ) const;
+    AMateria *clone( void ) const;
+    void    use( ICharacter& target );
 
 };
-
 
 #endif

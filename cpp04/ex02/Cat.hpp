@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmenoni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/22 14:05:54 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/07/22 14:05:56 by lmenoni          ###   ########.fr       */
+/*   Created: 2025/07/22 14:06:16 by lmenoni           #+#    #+#             */
+/*   Updated: 2025/07/22 14:06:18 by lmenoni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_H
-#define DOG_H
+#ifndef CAT_H
+#define CAT_H
 
 #include "Animal.hpp"
 #include "Brain.hpp"
 
-class Dog : public Animal
+class Cat : public AAnimal
 {
 private:
 
@@ -24,15 +24,14 @@ private:
 
 public:
 
-    Dog( void );
-    ~Dog( void );
-    Dog( const Dog& other );
-    Dog& operator=( const Dog& other );
+    Cat( void );
+    ~Cat( void );
+    Cat( const Cat& other );
+    Cat& operator=( const Cat& other );
 
     void    makeSound( void ) const;
-    void    displayIdeas( void ) const;
+    void    displayIdeas() const;
 
 };
-
 
 #endif

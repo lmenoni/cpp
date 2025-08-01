@@ -35,7 +35,7 @@ Dog::~Dog( void ) {
     delete brain;
 }
 
-Dog::Dog( const Dog& other ) : Animal(other) {
+Dog::Dog( const Dog& other ) : AAnimal(other) {
     std::cout << "Dog copy constructor called."  << std::endl;
     type = other.type;
     brain = new Brain(*other.brain);

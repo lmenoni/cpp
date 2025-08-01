@@ -16,6 +16,13 @@ void    Cat::makeSound( void ) const {
     std::cout << "Meow!" << std::endl;
 }
 
+void    Cat::displayIdeas( void ) const {
+    std::cout   << "=====ALL IDEAS====="    << std::endl;
+    for (int i = 0; i <  100; i++) {
+        std::cout   << brain->getIdea(i) << std::endl;
+    }
+}
+
 // ORTHODOX
 
 Cat::Cat( void ) : brain(new Brain()) {
