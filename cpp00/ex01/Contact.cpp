@@ -51,7 +51,7 @@ bool Contact::setContact(std::string fn, std::string ln
 
 void Contact::printColumn(std::string s){
     if (s.length() > 10)
-            std::cout << YELLOW << "|" << s.substr(0, 9) << "." << RESET;
+        std::cout << YELLOW << "|" << s.substr(0, 9) << "." << RESET;
     else
         std::cout << YELLOW << "|" << std::setw(10) << s << RESET;
 }
