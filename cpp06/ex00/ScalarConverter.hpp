@@ -9,9 +9,14 @@
 #include <limits>
 
 class ScalarConverter {
+private:
+
+    ScalarConverter( void ) {}
+
 public:
 
     static void convert( const std::string& s );
+
 };
 
 
