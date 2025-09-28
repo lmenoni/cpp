@@ -3,14 +3,14 @@
 # **************************************************************************** #
 
 # Nome dell'eseguibile
-NAME = ex02
+NAME = btc
 
 # Compilatore e flags
 CXX = g++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
 # Sorgenti
-SRC = main.cpp 
+SRC = main.cpp BitcoinExchange.cpp
 
 # Regola di default
 all: $(NAME)
