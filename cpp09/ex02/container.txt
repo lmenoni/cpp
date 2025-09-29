@@ -1,0 +1,37 @@
+1️⃣ Sequence Containers
+
+Contengono elementi in ordine sequenziale (posizione determinata).
+
+Container	Descrizione	Punti di forza	Principale utilizzo
+vector	Array dinamico contiguo	Accesso random O(1), veloce in lettura/scrittura sequenziale	Sequenze numeriche grandi, algoritmi divide-and-conquer, buffer
+deque	Doppia coda dinamica a blocchi	Accesso random O(1), inserimenti veloci a inizio/fine	Code con inserimenti sia a inizio che fine, algoritmi con spostamenti frequenti
+list	Lista doppiamente collegata	Inserimenti/eliminazioni ovunque O(1), iterazione sequenziale	Inserimenti frequenti in mezzo alla sequenza, merge sort su lista, buffer modificabili
+forward_list (C++11, quindi non C++98)	Lista semplicemente collegata	Più leggera di list	Sequenze singolarmente collegate (non disponibile in C++98)
+array (C++11, non C++98)	Array statico con dimensione fissa	Contiguo, veloce	Dati statici e piccole sequenze
+string	Array dinamico di caratteri	Accesso random O(1), gestione stringhe	Gestione di stringhe, parsing
+
+2️⃣ Associative Containers
+
+Contengono chiave-valore o solo chiavi, e gli elementi sono automaticamente ordinati secondo < (default) o comparatore custom.
+
+Container	Descrizione	Punti di forza	Principale utilizzo
+set	Collezione di chiavi uniche ordinate	Ricerca, inserimento, cancellazione O(log n)	Collezioni ordinate senza duplicati, ricerca rapida
+multiset	Set che permette duplicati	Stesso del set, permette duplicati	Conteggio frequenze, multicollezioni ordinate
+map	Chiave → valore, chiave unica	Ricerca, inserimento, cancellazione O(log n)	Dizionari, associazioni chiave-valore
+multimap	Come map ma chiavi duplicate	Stesso di map, permette duplicati	Raggruppamento dati con chiave non unica
+
+3️⃣ Container Adapters
+
+Non sono veri container: modificano l’interfaccia di un container sottostante.
+
+Container	Descrizione	Container sottostante	Principale utilizzo
+stack	LIFO (last-in, first-out)	di default deque, può usare vector o list	Pile di dati, backtracking, undo/redo
+queue	FIFO (first-in, first-out)	di default deque, può usare list	Code, buffer, gestione eventi
+priority_queue	Coda a priorità	di default vector con make_heap	Scheduler, heap, estrazione massimi/minimi
+🔹 Note generali
+
+Accesso random: vector e deque → sì; list e set/map → no.
+
+Inserimenti veloci: list, deque (inizio/fine); set/map O(log n)
+
+Memoria contigua: vector e string → ottima cache; deque → blocchi, meno cache-friendly; list → collegamenti sparsi
