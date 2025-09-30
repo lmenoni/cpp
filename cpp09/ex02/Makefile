@@ -3,14 +3,14 @@
 # **************************************************************************** #
 
 # Nome dell'eseguibile
-NAME = RPN
+NAME = PmergeMe
 
 # Compilatore e flags
 CXX = g++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
 # Sorgenti
-SRC = main.cpp RPN.cpp
+SRC = main.cpp PmergeMe.cpp
 
 # Regola di default
 all: $(NAME)

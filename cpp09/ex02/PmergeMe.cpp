@@ -1,38 +1,57 @@
 #include "PmergeMe.hpp"
 
-void    PmergeMe::addToVect( const char **input ) {
-    int i = 0;
+std::vector<int> PmergeMe::fordJohnsonSort(std::vector<int>& vec) {
+    std::vector<int>    shelf;
+    std::vector<int>    res;
 
-    while (input[i]) {
-        int j = 0;
-        while (input[i][j]) {
-            if (!std::isdigit(input[i][j]))
-                throw std::runtime_error((std::string)"Error: bad token '" + input[i] + "'");
-            j++;
+    if (vec.size() <= 1)
+        return (vec);
+    for (int i = 0; i + 1 < (int)vec.size(); i += 2) {
+        if (vec[i] < vec[i + 1]) {
+            shelf.push_back(vec[i]);
+            res.push_back(vec[i + 1]);
         }
-        _vect.push_back(std::atoi(input[i]));
-        i++;
+        else {
+            shelf.push_back(vec[i + 1]);
+            res.push_back(vec[i]);
+        }
     }
+    if (vec.size() % 2 != 0)
+        res.push_back(vec.back());
+    res = fordJohnsonSort(res);
+    std::vector<int>    jacobsthal = createJacobIndex<std::vector<int> >((int)shelf.size());
+    for (int i = 0; i < (int)jacobsthal.size(); i++) {
+        int value = shelf[jacobsthal[i]];
+        int pos = findInsertPosition<std::vector<int> >(res, value);
+        res.insert(res.begin() + pos, value);
+    }
+    return (res);
 }
 
-// Inserisci le coppie → separa maggiori e minori.
-// Ordina i maggiori (merge o insertion).
-// Inserisci i minori nell’array già ordinato.
+std::deque<int> PmergeMe::fordJohnsonSort(std::deque<int>& deq) {
+    std::deque<int>    shelf;
+    std::deque<int>    res;
 
-void    PmergeMe::addToDeque( const char **input ) {
-    int i = 0;
-
-    while (input[i]) {
-        int j = 0;
-        while (input[i][j]) {
-            if (!std::isdigit(input[i][j]))
-                throw std::runtime_error((std::string)"Error: bad token '" + input[i] + "'");
-            j++;
+    if (deq.size() <= 1)
+        return (deq);
+    for (int i = 0; i + 1 < (int)deq.size(); i += 2) {
+        if (deq[i] < deq[i + 1]) {
+            shelf.push_back(deq[i]);
+            res.push_back(deq[i + 1]);
         }
-        _deque.push_back(std::atoi(input[i]));
-        i++;
+        else {
+            shelf.push_back(deq[i + 1]);
+            res.push_back(deq[i]);
+        }
     }
+    if (deq.size() % 2 != 0)
+        res.push_back(deq.back());
+    res = fordJohnsonSort(res);
+    std::vector<int>    jacobsthal = createJacobIndex<std::vector<int> >((int)shelf.size());
+    for (int i = 0; i < (int)jacobsthal.size(); i++) {
+        int value = shelf[jacobsthal[i]];
+        int pos = findInsertPosition<std::deque<int> >(res, value);
+        res.insert(res.begin() + pos, value);
+    }
+    return (res);
 }
-
-void    sortVect( const char **input );
-void    sortDeque( const char **input );
