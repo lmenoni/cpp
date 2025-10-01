@@ -3,7 +3,7 @@
 # **************************************************************************** #
 
 # Nome dell'eseguibile
-NAME = convert
+NAME = ex02
 
 # Compilatore e flags
 CXX = g++

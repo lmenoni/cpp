@@ -3,13 +3,13 @@
 
 void    AForm::beSigned( const Bureaucrat &b ) {
     if (b.getGrade() > _gradeToSign)
-        throw AForm::GradeTooLowException();
+        throw Bureaucrat::GradeTooLowException();
     _isSigned = true;
 }
 
 void    AForm::execute( Bureaucrat const & executor ) const {
     if (executor.getGrade() > _gradeToExecute)
-        throw AForm::GradeTooLowException();
+        throw Bureaucrat::GradeTooLowException();
     else if (!_isSigned)
         throw AForm::IsNotSignedException();
     executeAction();

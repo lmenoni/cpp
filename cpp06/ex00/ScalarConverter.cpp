@@ -57,14 +57,81 @@ static void IntCharConvert(long double val) {
         std::cout   << "int: Impossible" << std::endl;
 }
 
+LiteralType detectType(const std::string& s) {
+    if (s.length() == 1 && !std::isdigit(s[0]))
+        return (L_CHAR);
+    
+    int start = 0;
+    if (s[0] == '-' || s[0] == '+')
+        start++;
+    int isInt = true;
+    for (int i = start; s[i]; i++) {
+        if (!std::isdigit(s[i])) {
+            isInt = false;
+            break;
+        }
+    }
+    if (isInt)
+        return (L_INT);
+
+    bool hasDot = false;
+    if (s[s.length() - 1] == 'f' && s.length() - start >= 4) {
+        for (size_t i = start; i < s.length() - 1; i++) {
+            if (s[i] == '.' && !hasDot) {
+                hasDot = true;
+                continue;
+            }
+            if (!std::isdigit(s[i])) {
+                hasDot = false;
+                break;
+            }
+        }
+        if (hasDot)
+            return (L_FLOAT);
+    }
+
+    hasDot = false;
+    if (s.length() - start >= 3) {
+        for (size_t i = start; i < s.length(); i++) {
+            if (s[i] == '.' && !hasDot) {
+                hasDot = true;
+                continue;
+            }
+            if (!std::isdigit(s[i])) {
+                hasDot = false;
+                break;
+            }
+        }
+        if (hasDot)
+                return (L_DOUBLE);
+    }
+
+    return (L_INVALID);
+}
+
+long double charToDouble (const std::string s) {
+    return (static_cast<long double>(s[0]));
+}
+
+long double intToDouble (const std::string s) {
+    std::istringstream iss(s);
+    long double n;
+    iss >> n;
+    return (n);
+}
+
 void ScalarConverter::convert( const std::string& s ) {
     long double ld = 0.0;
-
+    
     if (HandleSpecialCases(s))
         return ;
-    std::stringstream ss(s);
-    ss >> ld;
-    if (ss.fail()) {
+
+    LiteralType type = detectType(s);
+    if (type == L_CHAR)
+        ld = charToDouble(s);
+    else if (type == L_INT || type == L_FLOAT || type == L_DOUBLE)
+        ld = intToDouble(s);
+    else if (type == L_INVALID) {
         std::cout   << "char: Impossible" << std::endl;
         std::cout   << "int: Impossible" << std::endl;
         std::cout   << "float: Impossible" << std::endl;

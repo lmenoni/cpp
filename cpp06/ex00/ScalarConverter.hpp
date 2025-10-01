@@ -8,6 +8,14 @@
 #include <iomanip>
 #include <limits>
 
+enum LiteralType {
+    L_CHAR,
+    L_INT,
+    L_FLOAT,
+    L_DOUBLE,
+    L_INVALID
+};
+
 class ScalarConverter {
 private:
 

@@ -1,21 +1,29 @@
 #include "Intern.hpp"
 
+static AForm* createShrubbery(const std::string &target) {
+    return new ShrubberyCreationForm(target);
+}
+
+static AForm* createRobotomy(const std::string &target) {
+    return new RobotomyRequestForm(target);
+}
+
+static AForm* createPresidential(const std::string &target) {
+    return new PresidentialPardonForm(target);
+}
+
 AForm* Intern::makeForm(const std::string &fName, const std::string &target) const {
-    AForm   *form = NULL;
+    std::string types[3] = {"Shrubbery", "Robotomy", "Presidential"};
 
-    if (fName == "Shrubbery")
-        form = new ShrubberyCreationForm(target);
-    else if (fName == "Robotomy")
-        form = new RobotomyRequestForm(target);
-    else if (fName == "Presidential")
-        form = new PresidentialPardonForm(target);
-    
-    if (form)
-        std::cout << "Intern creates " << fName << std::endl;
-    else
-        std::cout << "Error: form \"" << fName << "\" does not exist." << std::endl;
-
-    return (form);
+    AForm *(*create[3])(const std::string&) = {&createShrubbery, &createRobotomy, &createPresidential};
+    for (int i = 0; i < 3; i++) {
+        if (fName == types[i]) {
+            std::cout << "Intern creates " << fName << std::endl;
+            return (create[i](target));
+        }
+    }
+    std::cout << "Error: form \"" << fName << "\" does not exist." << std::endl;
+    return (NULL);
 }
 
 // ORTHODOX
