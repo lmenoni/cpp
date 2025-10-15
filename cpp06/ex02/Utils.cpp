@@ -1,9 +1,6 @@
 #include "A.hpp"
 #include "B.hpp"
 #include "C.hpp"
-#include <ctime>
-#include <cstdlib>
-#include <iostream>
 
 typedef enum {
     TYPE_A,
@@ -15,7 +12,6 @@ Base *generate(void) {
     Base    *res;
     int     type;
 
-    srand(time(NULL));
     type = rand() % 3;
     if (type == TYPE_A) {
         res = new A();
@@ -27,7 +23,7 @@ Base *generate(void) {
     }
     else if (type == TYPE_C) {
         res = new C();
-        std::cout   << "Generated type A." << std:: endl;
+        std::cout   << "Generated type C." << std:: endl;
     }
     return (res);
 }
@@ -42,10 +38,22 @@ void identify(Base* p) {
 }
 
 void identify(Base& p) {
-    if (dynamic_cast<A*>(&p))
+    try {
+        dynamic_cast<A&>(p);
         std::cout << "Object of type A." << std::endl;
-    else if (dynamic_cast<B*>(&p))
+        return ;
+    }
+    catch (std::exception &e) {}
+    try {
+        dynamic_cast<B&>(p);
         std::cout << "Object of type B." << std::endl;
-    else if (dynamic_cast<C*>(&p))
+        return ;
+    }
+    catch (std::exception &e) {}
+    try {
+        dynamic_cast<C&>(p);
         std::cout << "Object of type C." << std::endl;
+        return ;
+    }
+    catch (std::exception &e) {}
 }

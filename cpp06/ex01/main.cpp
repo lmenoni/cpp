@@ -8,9 +8,10 @@ int main( void ) {
 
     ptr.name = "42";
     ptr.val = 42;
-    temp = Serializer::serialize(&ptr);
-    res = Serializer::deserialize(temp);
     std::cout   << "Original ptr is: " << &ptr << std::endl;
+    temp = Serializer::serialize(&ptr);
+    std::cout   << "Unsigned long conversion: " << temp << std::endl;
+    res = Serializer::deserialize(temp);
     std::cout   << "New ptr is: " << res << std::endl;
 
 }

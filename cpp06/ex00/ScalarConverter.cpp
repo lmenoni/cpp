@@ -1,143 +1,110 @@
 #include "ScalarConverter.hpp"
 
-static bool HandleSpecialCases(const std::string& s) {
-    if (s == "+inf" || s == "+inff") {
-        std::cout   << "char: Impossible" << std::endl;
-        std::cout   << "int: Impossible" << std::endl;
-        std::cout << "float: +inff" << std::endl;
-        std::cout << "double: +inf" << std::endl;
-        return (true);
-    }
+static bool handleSpecialCases(const std::string& s) {
     if (s == "nan" || s == "nanf") {
-        std::cout   << "char: Impossible" << std::endl;
-        std::cout   << "int: Impossible" << std::endl;
-        std::cout << "float: nanf" << std::endl;
-        std::cout << "double: nan" << std::endl;
-        return (true);
+        std::cout << "char: impossible\nint: impossible\nfloat: nanf\ndouble: nan\n";
+        return true;
+    }
+    if (s == "+inf" || s == "+inff") {
+        std::cout << "char: impossible\nint: impossible\nfloat: +inff\ndouble: +inf\n";
+        return true;
     }
     if (s == "-inf" || s == "-inff") {
-        std::cout   << "char: Impossible" << std::endl;
-        std::cout   << "int: Impossible" << std::endl;
-        std::cout << "float: -inff" << std::endl;
-        std::cout << "double: -inf" << std::endl;
-        return (true);
+        std::cout << "char: impossible\nint: impossible\nfloat: -inff\ndouble: -inf\n";
+        return true;
     }
-    return (false);
+    return false;
 }
 
-static void FloatDoubleConvert(long double val) {
-    if (val <= static_cast<long double>(std::numeric_limits<float>::max())
-        && val >= static_cast<long double>(-std::numeric_limits<float>::max()))
-        std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(val) << "f" << std::endl;
+static void printChar(long double value) {
+    if (value < std::numeric_limits<char>::min() ||
+        value > std::numeric_limits<char>::max())
+        std::cout << "char: impossible" << std::endl;
+    else if (!std::isprint(static_cast<char>(value)))
+        std::cout << "char: Non displayable" << std::endl;
     else
-        std::cout << "float: Impossible" << std::endl;
-    
-    if (val <= static_cast<long double>(std::numeric_limits<double>::max())
-        && val >= static_cast<long double>(-std::numeric_limits<double>::max()))
-            std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(val) << std::endl;
-    else
-        std::cout << "double: Impossible" << std::endl;
+        std::cout << "char: '" << static_cast<char>(value) << "'" << std::endl;
 }
 
-static void IntCharConvert(long double val) {
-    if (val >= CHAR_MIN && val <= CHAR_MAX) {
-        if (isprint(static_cast<char>(val))) {
-            std::cout   << "char: '" << static_cast<char>(val) << "'" << std::endl;
-        }
-        else {
-            std::cout   << "char: Non displayable" << std::endl;
-        }
-    }
+static void printInt(long double value) {
+    if (value < std::numeric_limits<int>::min() ||
+        value > std::numeric_limits<int>::max())
+        std::cout << "int: impossible" << std::endl;
     else
-        std::cout   << "char: Impossible" << std::endl;
-    
-    if (val >= INT_MIN && val <= INT_MAX )
-        std::cout   << "int: " << static_cast<int>(val) << std::endl;
-    else
-        std::cout   << "int: Impossible" << std::endl;
+        std::cout << "int: " << static_cast<int>(value) << std::endl;
 }
 
-LiteralType detectType(const std::string& s) {
+static void printFloatDouble(long double value) {
+    if (value > std::numeric_limits<float>::max() ||
+        value < -std::numeric_limits<float>::max())
+        std::cout << "float: impossible" << std::endl;
+    else
+        std::cout << "float: " << std::fixed << std::setprecision(1)
+                  << static_cast<float>(value) << "f" << std::endl;
+
+    if (value > std::numeric_limits<double>::max() ||
+        value < -std::numeric_limits<double>::max())
+        std::cout << "double: impossible" << std::endl;
+    else
+        std::cout << "double: " << std::fixed << std::setprecision(1)
+                  << static_cast<double>(value) << std::endl;
+}
+
+static LiteralType detectType(const std::string& s) {
     if (s.length() == 1 && !std::isdigit(s[0]))
-        return (L_CHAR);
-    
-    int start = 0;
-    if (s[0] == '-' || s[0] == '+')
-        start++;
-    int isInt = true;
-    for (int i = start; s[i]; i++) {
-        if (!std::isdigit(s[i])) {
-            isInt = false;
-            break;
-        }
-    }
-    if (isInt)
-        return (L_INT);
+        return L_CHAR;
 
     bool hasDot = false;
-    if (s[s.length() - 1] == 'f' && s.length() - start >= 4) {
-        for (size_t i = start; i < s.length() - 1; i++) {
-            if (s[i] == '.' && !hasDot) {
-                hasDot = true;
-                continue;
-            }
-            if (!std::isdigit(s[i])) {
-                hasDot = false;
-                break;
-            }
-        }
-        if (hasDot)
-            return (L_FLOAT);
+    bool hasF = false;
+    size_t i = 0;
+
+    if (s[i] == '+' || s[i] == '-')
+        ++i;
+
+    for (; i < s.length(); ++i) {
+        if (s[i] == '.' && !hasDot)
+            hasDot = true;
+        else if (s[i] == 'f' && i == s.length() - 1)
+            hasF = true;
+        else if (!std::isdigit(s[i]))
+            return L_INVALID;
     }
 
-    hasDot = false;
-    if (s.length() - start >= 3) {
-        for (size_t i = start; i < s.length(); i++) {
-            if (s[i] == '.' && !hasDot) {
-                hasDot = true;
-                continue;
-            }
-            if (!std::isdigit(s[i])) {
-                hasDot = false;
-                break;
-            }
-        }
-        if (hasDot)
-                return (L_DOUBLE);
-    }
-
-    return (L_INVALID);
+    if (hasDot && hasF)
+        return L_FLOAT;
+    if (hasDot)
+        return L_DOUBLE;
+    if (!hasDot && !hasF)
+        return L_INT;
+    return L_INVALID;
 }
 
-long double charToDouble (const std::string s) {
-    return (static_cast<long double>(s[0]));
-}
-
-long double intToDouble (const std::string s) {
+static bool stringToLongDouble(const std::string& s, long double& out) {
     std::istringstream iss(s);
-    long double n;
-    iss >> n;
-    return (n);
+    iss >> out;
+    return !iss.fail();
 }
 
 void ScalarConverter::convert( const std::string& s ) {
     long double ld = 0.0;
     
-    if (HandleSpecialCases(s))
+    if (handleSpecialCases(s))
         return ;
 
     LiteralType type = detectType(s);
     if (type == L_CHAR)
-        ld = charToDouble(s);
-    else if (type == L_INT || type == L_FLOAT || type == L_DOUBLE)
-        ld = intToDouble(s);
+        ld = static_cast<long double>(s[0]);
+    else if (type == L_INT || type == L_FLOAT || type == L_DOUBLE){
+        if (!stringToLongDouble(s, ld)) {
+            std::cout << "char: impossible\nint: impossible\nfloat: impossible\ndouble: impossible\n";
+            return;
+        }
+    }
     else if (type == L_INVALID) {
-        std::cout   << "char: Impossible" << std::endl;
-        std::cout   << "int: Impossible" << std::endl;
-        std::cout   << "float: Impossible" << std::endl;
-        std::cout   << "double: Impossible" << std::endl;
+        std::cout << "char: impossible\nint: impossible\nfloat: impossible\ndouble: impossible\n";
         return ;
     }
-    IntCharConvert(ld);
-    FloatDoubleConvert(ld);
+    printChar(ld);
+    printInt(ld);
+    printFloatDouble(ld);
 }
